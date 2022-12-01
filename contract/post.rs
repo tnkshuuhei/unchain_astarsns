@@ -148,5 +148,4 @@ impl AstarSnsContract {
         // いいねの総数を返す
         num_of_likes
     }
-
 }

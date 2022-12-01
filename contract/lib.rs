@@ -1,7 +1,7 @@
 #![cfg_attr(not(feature = "std"), no_std)]
 
-mod ft;
 mod follow;
+mod ft;
 mod message;
 mod metadata;
 mod post;
@@ -227,8 +227,8 @@ mod astar_sns_contract {
         }
 
         // // 投稿機能の確認
-         #[ink::test]
-         fn test_post_release_fn_works() {
+        #[ink::test]
+        fn test_post_release_fn_works() {
             // コントラクトのインスタンス化
             let mut astar_sns_contract = AstarSnsContract::new();
 
