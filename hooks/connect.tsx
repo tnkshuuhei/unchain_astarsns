@@ -19,8 +19,8 @@ type Props = {
 // コントラクトとの接続を行うための関数
 export const connectToContract = async (props: Props) => {
   // rpcのURL
-  const blockchainUrl = "ws://127.0.0.1:9944";
-  // const blockchainUrl = "wss://shibuya-rpc.dwellir.com";
+  // const blockchainUrl = "ws://127.0.0.1:9944";
+  const blockchainUrl = "wss://shibuya-rpc.dwellir.com";
 
   // この関数でアカウント情報を取得する
   const extensionSetup = async () => {
