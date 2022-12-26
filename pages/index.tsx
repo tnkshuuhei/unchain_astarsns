@@ -62,7 +62,7 @@ const Home: NextPage = () => {
         <Image
           className="rotate-[17deg] h-14 w-16 top-16 left-[530px] absolute "
           src="/cross_star_6_logo-removebg.png"
-					alt="astar_logo"
+          alt="astar_logo"
           width={40}
           height={40}
         />
