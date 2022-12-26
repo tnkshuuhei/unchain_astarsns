@@ -27,7 +27,7 @@ export const connectToContract = async (props: Props) => {
     const { web3Accounts, web3Enable } = await import(
       "@polkadot/extension-dapp"
     );
-    const extensions = await web3Enable("Polk4NET");
+    const extensions = await web3Enable("Astar_SNS");
     if (extensions.length === 0) {
       return;
     }
