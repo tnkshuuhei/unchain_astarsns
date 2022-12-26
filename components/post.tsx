@@ -6,6 +6,7 @@ import { addLikes } from "../hooks/postFunction";
 import { SmallerProfileIcon } from "./atoms/smallerProfileIcon";
 
 export default function Post(props: any) {
+  console.log("props: " + JSON.stringify(props));
   return (
     <div className="px-3 items-center border-b-2 py-1 ">
       <div className="flex flex-row justify-center">

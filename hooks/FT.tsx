@@ -3,7 +3,8 @@ import { ContractPromise } from "@polkadot/api-contract";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import { Dispatch } from "react";
 
-import abi from "../metadata.json";
+import abi from "../contract/target/ink/metadata.json";
+// const gasLimit = api.registry.createType('WeightV2', gasRequired) as WeightV2
 
 type PropsBO = {
   api: ApiPromise | undefined;
@@ -31,7 +32,7 @@ export const balenceOf = async (props: PropsBO) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.actingAccount.address
   );
@@ -49,7 +50,7 @@ export const transfer = async (props: PropsTF) => {
   const transfer = await contract.tx.transfer(
     {
       value: 0,
-      gasLimit: 31518000000,
+      gasLimit: 100000000000,
     },
     props.amount
   );
@@ -70,7 +71,7 @@ export const distributeReferLikes = async (props: PropsDRL) => {
   const date = new Date();
   const transfer = await contract.tx.distributeReferLikes({
     value: 0,
-    gasLimit: 31518000000,
+    gasLimit: 100000000000,
   });
   if (injector !== undefined) {
     transfer.signAndSend(

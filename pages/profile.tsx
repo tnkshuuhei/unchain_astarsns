@@ -19,6 +19,11 @@ import {
   getProfileForProfile,
 } from "../hooks/profileFunction";
 
+const sleep = (waitMsec) => {
+  var startMsec = new Date();
+  while (new Date() - startMsec < waitMsec);
+};
+
 export default function profile(props: any) {
   const [imgUrl, setImgUrl] = useState("");
   const [isCreatedProfile, setIsCreatedProfile] = useState(true);
@@ -46,43 +51,76 @@ export default function profile(props: any) {
       setActingAccount: setActingAccount!,
       setIsSetup: setIsSetup,
     });
+    sleep(500);
+  }, []);
+
+  useEffect(() => {
     if (!isSetup) return;
+    console.log("isSetup");
+
     getProfileForProfile({
       api: api,
       userId: actingAccount?.address,
       setImgUrl: setImgUrl,
       setName: setName,
     });
+    sleep(500);
+    console.log("getProfileForProfile");
+
     getIndividualPost({
       api: api,
       actingAccount: actingAccount,
       setIndividualPostList: setIndividualPostList,
     });
+    sleep(500);
+    console.log("getIndividualPost");
+
     getFollowingList({
       api: api,
       userId: actingAccount?.address,
       setFollowingList: setFollowingList,
     });
+    sleep(500);
+    console.log("getFollowingList");
+
     getFollowerList({
       api: api,
       userId: actingAccount?.address,
       setFollowerList: setFollowerList,
     });
+    sleep(500);
+    console.log("getFollowerList");
+
     balenceOf({
       api: api,
       actingAccount: actingAccount!,
       setBalance: setBalance,
     });
+    sleep(500);
+    console.log("balenceOf");
+
     if (isCreatedFnRun) return;
+    console.log("isCreatedFnRun");
+
     checkCreatedInfo({
       api: api,
       userId: actingAccount?.address!,
       setIsCreatedProfile: setIsCreatedProfile,
     });
+    sleep(500);
+    console.log("checkCreatedInfo");
+
     if (isCreatedProfile) return;
+    console.log("isCreatedProfile");
+
     createProfile({ api: api, actingAccount: actingAccount! });
+    sleep(500);
+    console.log("checkCreatedInfo");
+
     setIsCreatedFnRun(true);
-  });
+    console.log("setIsCreatedFnRun");
+
+  }, [actingAccount]);
 
   return (
     <div className="flex justify-center items-center bg-gray-200 w-screen h-screen relative">

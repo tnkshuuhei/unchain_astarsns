@@ -3,7 +3,7 @@ import { ContractPromise } from "@polkadot/api-contract";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import { Dispatch } from "react";
 
-import abi from "../metadata.json";
+import abi from "../contract/target/ink/metadata.json";
 
 // type of profile in contract
 export type ProfileType = {
@@ -101,7 +101,7 @@ export const checkCreatedInfo = async (props: PropsCCI) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.userId
   );
@@ -119,7 +119,7 @@ export const createProfile = async (props: PropsCP) => {
   const injector = await web3FromSource(performingAccount.meta.source);
   const create_profile = await contract.tx.createProfile({
     value: 0,
-    gasLimit: 18750000000,
+    gasLimit: 100000000000,
   });
   if (injector !== undefined) {
     create_profile.signAndSend(
@@ -137,7 +137,7 @@ export const getProfileForHome = async (props: PropsGPFH) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.userId
   );
@@ -157,7 +157,7 @@ export const getProfileForProfile = async (props: PropsGPFP) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.userId
   );
@@ -182,7 +182,7 @@ export const getProfileForMessage = async (props: PropsGPFM) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.userId
   );
@@ -211,11 +211,12 @@ export const getSimpleProfileForMessage = async (props: PropsGSPFM) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.userId
   );
   if (output !== undefined && output !== null) {
+    console.log("output.toHuman(): " + JSON.stringify(output.toHuman()));
     return output.toHuman();
   }
   return;
@@ -230,7 +231,7 @@ export const follow = async (props: PropsF) => {
   const follow = await contract.tx.follow(
     {
       value: 0,
-      gasLimit: 200000000000,
+      gasLimit: 100000000000,
     },
     props.followedId
   );
@@ -251,7 +252,7 @@ export const setProfileInfo = async (props: PropSPI) => {
   const set_profile_info = await contract.tx.setProfileInfo(
     {
       value: 0,
-      gasLimit: 187500000000,
+      gasLimit: 100000000000,
     },
     props.name,
     props.imgUrl
@@ -272,7 +273,7 @@ export const getFollowingList = async (props: PropsGFIL) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.userId
   );
@@ -290,7 +291,7 @@ export const getFollowerList = async (props: PropsGFEL) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.userId
   );

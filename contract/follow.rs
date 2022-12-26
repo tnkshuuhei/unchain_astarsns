@@ -1,5 +1,6 @@
 use crate::metadata::*;
 use ink_env::AccountId;
+use ink_prelude::string::String;
 use ink_prelude::vec::Vec;
 
 use crate::astar_sns_contract::AstarSnsContract;

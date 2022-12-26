@@ -24,8 +24,8 @@ export default function MessageMember(props: any) {
         onClick={() => props.setShowMessageModal(true)}
       />
       <div className="flex items-start justify-center flex-col py-1">
-        <div className="text-xm">{props.name}</div>
-        <div className="text-xl">{props.last_message}</div>
+        <div key={props.messageListId + "_" + props.name} className="text-xm">{props.name}</div>
+        <div key={props.messageListId + "_" + props.last_message} className="text-xl">{props.last_message}</div>
       </div>
     </div>
   );

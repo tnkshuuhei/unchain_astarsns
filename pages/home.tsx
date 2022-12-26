@@ -17,6 +17,11 @@ import {
   getProfileForHome,
 } from "../hooks/profileFunction";
 
+const sleep = (waitMsec) => {
+  var startMsec = new Date();
+  while (new Date() - startMsec < waitMsec);
+};
+
 export default function home() {
   const [api, setApi] = useState<ApiPromise>();
 
@@ -43,34 +48,57 @@ export default function home() {
       setActingAccount: setActingAccount!,
       setIsSetup: setIsSetup,
     });
+    sleep(500);
+  }, []);
+
+  useEffect(() => {
     if (!isSetup) return;
+    console.log("after isSetup");
+
     getProfileForHome({
       api: api!,
       userId: actingAccount?.address!,
       setImgUrl: setImgUrl,
     });
+    sleep(500);
+
     balenceOf({
       api: api,
       actingAccount: actingAccount!,
       setBalance: setBalance,
     });
+    sleep(500);
+
     getGeneralPost({ api: api!, setGeneralPostList: setGeneralPostList });
+    sleep(500);
+    console.log("generalPostList: " + JSON.stringify(generalPostList));
+
     if (isDistributed) return;
+
     distributeReferLikes({
       api: api,
       actingAccount: actingAccount!,
     });
+    sleep(500);
+
     setIsDistributed(true);
+
     if (isCreatedFnRun) return;
+
     checkCreatedInfo({
       api: api,
       userId: actingAccount?.address!,
       setIsCreatedProfile: setIsCreatedProfile,
     });
+    sleep(500);
+
     if (isCreatedProfile) return;
+
     createProfile({ api: api, actingAccount: actingAccount! });
+    sleep(500);
+
     setIsCreatedFnRun(true);
-  });
+  }, [actingAccount]);
 
   return (
     <div className="flex justify-center items-center bg-gray-200 w-screen h-screen relative">

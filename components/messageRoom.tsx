@@ -1,7 +1,7 @@
 import { ApiPromise } from "@polkadot/api";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import Image from "next/image";
-import React, { Dispatch } from "react";
+import React, { Dispatch, useEffect } from "react";
 import { BsArrowLeft } from "react-icons/bs";
 
 import { InputBox } from "../components/atoms/inputBox";
@@ -25,6 +25,9 @@ type Props = {
 };
 
 export default function MessageRoom(props: Props) {
+  console.log("props.myImgUrl: " + props.myImgUrl);
+  console.log("props.userImgUrl: " + props.userImgUrl);
+  console.log("props: " + JSON.stringify(props.messageList));
   const submit = async (event: any) => {
     event.preventDefault();
     await sendMessage({
@@ -48,6 +51,7 @@ export default function MessageRoom(props: Props) {
           {props.messageList.map((message) => (
             <div>
               <Message
+                key={message.createdTime}
                 account_id={props.myUserId}
                 img_url={
                   props.myUserId == message.senderId

@@ -23,6 +23,7 @@ const Footer: FC<Props> = (props: Props) => {
     <div className="text-xl bg-[#D9D9D9] h-20 space-x-28 flex-row items-center justify-center flex px-10">
       {screenInfoList.map((screenInfo) => (
         <BottomLogo
+          key={screenInfo.name}
           selectedScreen={props.selectedScreen}
           screenName={screenInfo.name}
           setSelectedScreen={props.setSelectedScreen}

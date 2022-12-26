@@ -3,7 +3,7 @@ import { ContractPromise } from "@polkadot/api-contract";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import { Dispatch } from "react";
 
-import abi from "../metadata.json";
+import abi from "../contract/target/ink/metadata.json";
 
 // type for post in contract
 export type PostType = {
@@ -47,6 +47,7 @@ type PropsGIP = {
 
 const contractAddress: string = process.env
   .NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+const gaslimit = 100000000000;
 
 // release post function
 export const releasePost = async (props: PropsRP) => {
@@ -58,7 +59,7 @@ export const releasePost = async (props: PropsRP) => {
   const release_post = await contract.tx.releasePost(
     {
       value: 0,
-      gasLimit: 50000000000,
+      gasLimit: 100000000000,
     },
     props.description,
     [date.getFullYear(), date.getMonth() + 1, date.getDate()].join("-") +
@@ -85,7 +86,7 @@ export const getGeneralPost = async (props: PropsGGP) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     1
   );
@@ -107,7 +108,7 @@ export const addLikes = async (props: PropsAL) => {
   const add_likes = await contract.tx.addLikes(
     {
       value: 0,
-      gasLimit: 18850000000,
+      gasLimit: 100000000000,
     },
     props.postId
   );
@@ -128,7 +129,7 @@ export const getIndividualPost = async (props: PropsGIP) => {
       "",
       {
         value: 0,
-        gasLimit: -1,
+        gasLimit: 100000000000,
       },
       1,
       props.actingAccount?.address

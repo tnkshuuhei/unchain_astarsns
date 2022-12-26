@@ -6,6 +6,9 @@ type Props = {
 };
 
 export const BiggerProfileIcon: FC<Props> = (props: Props) => {
+  console.log("props.imgUrl: " + props.imgUrl);
+  console.log("======================");
+  console.log("props: " + JSON.stringify(props));
   return (
     <Image
       className="rounded-full h-24 w-24 mx-2"

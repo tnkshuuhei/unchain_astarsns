@@ -2,7 +2,7 @@ import { ApiPromise } from "@polkadot/api";
 import { ContractPromise } from "@polkadot/api-contract";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 
-import abi from "../metadata.json";
+import abi from "../contract/target/ink/metadata.json";
 
 // コントラクトの`Message`構造体の型
 export type MessageType = {
@@ -34,6 +34,7 @@ type PropsGLM = {
 // コントラクトアドレスをenvファイルから抽出
 const contractAddress: string = process.env
   .NEXT_PUBLIC_CONTRACT_ADDRESS as string;
+const gaslimit = 100000000000;
 
 // メッセージ送信関数
 export const sendMessage = async (props: PropsSM) => {
@@ -45,7 +46,7 @@ export const sendMessage = async (props: PropsSM) => {
   const add_likes = await contract.tx.sendMessage(
     {
       value: 0,
-      gasLimit: 18850000000,
+      gasLimit: 100000000000,
     },
     props.message,
     props.id,
@@ -72,7 +73,7 @@ export const getMessageList = async (props: PropsGML) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.id,
     1
@@ -90,7 +91,7 @@ export const getLastMessage = async (props: PropsGLM) => {
     "",
     {
       value: 0,
-      gasLimit: -1,
+      gasLimit: 100000000000,
     },
     props.id
   );

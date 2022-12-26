@@ -3,7 +3,7 @@ import type { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import React, { useEffect, useState } from "react";
 
 import BottomNavigation from "../components/bottomNavigation";
-import MessageMember from "../components/message_number";
+import MessageMember from "../components/message_member";
 import MessageRoom from "../components/messageRoom";
 import TopBar from "../components/topBar";
 import { connectToContract } from "../hooks/connect";
@@ -17,8 +17,15 @@ import {
 } from "../hooks/profileFunction";
 import type { ProfileType } from "../hooks/profileFunction";
 
+const setMsec = 500;
+const sleep = (waitMsec) => {
+  var startMsec = new Date();
+  while (new Date() - startMsec < waitMsec);
+};
+
 export default function message() {
   // variable related to contract
+  const [isTrigger, setTrigger] = useState<Number>(0);
   const [api, setApi] = useState<ApiPromise>();
   const [accountList, setAccountList] = useState<InjectedAccountWithMeta[]>([]);
   const [actingAccount, setActingAccount] = useState<InjectedAccountWithMeta>();
@@ -40,7 +47,6 @@ export default function message() {
   const [balance, setBalance] = useState<string>("0");
 
   useEffect(() => {
-    //connect to contract
     connectToContract({
       api: api,
       accountList: accountList,
@@ -51,7 +57,12 @@ export default function message() {
       setActingAccount: setActingAccount!,
       setIsSetup: setIsSetup,
     });
+    sleep(500);
+  }, [])
+
+  useEffect(() => {
     if (!isSetup) return;
+    console.log("isSetup");
 
     // get profile
     getProfileForMessage({
@@ -62,17 +73,25 @@ export default function message() {
       setFriendList: setFriendList,
       setProfile: setProfile,
     });
+    sleep(setMsec);
+
     // create message member list UI
     createMessageMemberList();
+    sleep(setMsec);
+
+    console.log("createMessageMemberList");
 
     balenceOf({
       api: api,
       actingAccount: actingAccount!,
       setBalance: setBalance,
     });
+    sleep(setMsec);
+    console.log("balenceOf");
 
     // check if already created profile in frontend
     if (isCreatedFnRun) return;
+    console.log("isCreatedFnRun");
 
     // check if already created profile in contract
     checkCreatedInfo({
@@ -80,26 +99,37 @@ export default function message() {
       userId: actingAccount?.address,
       setIsCreatedProfile: setIsCreatedProfile,
     });
+    console.log("checkCreatedInfo");
+
     if (isCreatedProfile) return;
+    console.log("isCreatedProfile");
+
     // create profile
     createProfile({ api: api, actingAccount: actingAccount! });
+    console.log("createProfile");
+
     setIsCreatedFnRun(true);
-  });
+    console.log("setIsCreatedFnRun");
+
+  }, [actingAccount]);
 
   // create message member list UI
   const createMessageMemberList = async () => {
     let memberList: Array<any> = new Array();
+    console.log("friendList: " + friendList);
     for (var i = 0; i < friendList.length; i++) {
       let friendProfile = await getSimpleProfileForMessage({
         api: api,
         userId: friendList[i],
       });
+      console.log("friendProfile: " + JSON.stringify(friendProfile));
       let idList = profile?.messageListIdList;
       let lastMessage: string;
       let messageList = await getMessageList({
         api: api,
         id: idList![i],
       });
+      console.log("messageList: " + messageList);
       if (idList !== null) {
         lastMessage = await getLastMessage({ api: api, id: idList![i] });
       }
