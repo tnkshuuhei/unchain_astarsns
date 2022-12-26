@@ -3,7 +3,7 @@ import { ContractPromise } from "@polkadot/api-contract";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 import { Dispatch } from "react";
 
-import abi from "../contract/target/ink/metadata.json";
+import abi from "../metadata.json";
 // const gasLimit = api.registry.createType('WeightV2', gasRequired) as WeightV2
 
 type PropsBO = {

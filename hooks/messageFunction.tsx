@@ -2,8 +2,7 @@ import { ApiPromise } from "@polkadot/api";
 import { ContractPromise } from "@polkadot/api-contract";
 import { InjectedAccountWithMeta } from "@polkadot/extension-inject/types";
 
-import abi from "../contract/target/ink/metadata.json";
-
+import abi from "../metadata.json";
 // コントラクトの`Message`構造体の型
 export type MessageType = {
   message: string;
